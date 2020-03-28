@@ -1,5 +1,6 @@
 fn main() {
-    another_function(5);
+    ownership_example();
+    // another_function(5);
 }
 
 fn another_function(x: i32) {
@@ -28,6 +29,24 @@ fn another_function(x: i32) {
 
 fn five() -> i32 {
     5
+}
+
+fn ownership_example() {
+    let s1 = String::from("Hello");
+    let s2 = s1.clone();   // .clone is really expensive as it clones all data from the variable
+    println!("{}, world!", s1);
+    
+    let b1 = false;
+    let b2 = b1;
+    println!("b1: {}", b1); // only types that don't require allocation accept Copy trait
+
+    let (s3, len) = calculate_length(s1);
+    println!("The length of '{}' is {}", s3, len);
+}
+
+fn calculate_length(s: String) -> (String, usize) {
+    let length = s.len();
+    (s, length)
 }
 
 fn plus_one(x: i32) -> i32 {
