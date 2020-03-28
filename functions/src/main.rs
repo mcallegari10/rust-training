@@ -1,6 +1,6 @@
 fn main() {
     ownership_example();
-    // another_function(5);
+    another_function(5);
 }
 
 fn another_function(x: i32) {
@@ -32,9 +32,9 @@ fn five() -> i32 {
 }
 
 fn ownership_example() {
-    let s1 = String::from("Hello");
+    let s1 = String::from("Hello world!");
     let s2 = s1.clone();   // .clone is really expensive as it clones all data from the variable
-    println!("{}, world!", s1);
+    println!("{}", s1);
     
     let b1 = false;
     let b2 = b1;
@@ -42,6 +42,12 @@ fn ownership_example() {
 
     let (s3, len) = calculate_length(s1);
     println!("The length of '{}' is {}", s3, len);
+
+    let hell = &s3[..4];
+    println!("{}", hell);
+
+    let hello = first_word(&s3);
+    println!("{}", hello);
 }
 
 fn calculate_length(s: String) -> (String, usize) {
@@ -70,4 +76,14 @@ fn get_numbers() {
     for element in a.iter() {
         println!("The value is: {}", element);
     }
+}
+
+fn first_word(s: &str) -> &str {
+    let bytes = s.as_bytes();
+    for (i, &item) in bytes.iter().enumerate() {
+        if item == b' ' {
+            return &s[..i];
+        }
+    }
+    &s[..]
 }
