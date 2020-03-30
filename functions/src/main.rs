@@ -1,6 +1,30 @@
+struct User {
+    email: String,
+    username: String,
+    active: bool,
+    sign_in_count: u64,
+}
+
+struct Color(i32, i32, i32);
+
 fn main() {
-    ownership_example();
-    another_function(5);
+    // ownership_example();
+    // another_function(5);
+
+    let email = String::from("somemail@example.com");
+    let username = String::from("mcallegari10");
+    let new_user = create_user(email, username);
+
+    let user2 = User {
+        email: String::from("otheremail@example.com"),
+        username: String::from("otheruser"),
+        ..new_user
+    };
+
+    println!("user: {}", new_user.username);
+    println!("user2: {}", user2.username);
+
+    let black = Color(0, 0, 0);
 }
 
 fn another_function(x: i32) {
@@ -86,4 +110,13 @@ fn first_word(s: &str) -> &str {
         }
     }
     &s[..]
+}
+
+fn create_user(email: String, username: String) -> User {
+    User {
+        email,
+        username,
+        active: true,
+        sign_in_count: 1
+    }
 }
